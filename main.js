@@ -8,8 +8,14 @@ const SUN_POSITION = new THREE.Vector3(-1200, 0, 0);
 const MARS_ORBIT_RADIUS = 1700;
 const MARS_START_ANGLE = 0.48;
 const MARS_CAMERA_OFFSET = new THREE.Vector3(-40, 15, 55);
-const EARTH_VIEW_END = 12000;
+const MARS_VIEW_START = 11696;
+const SOLAR_VIEW_START = 16250;
 const SYSTEM_VIEW_END = 48000;
+const MARS_VIEW_START_CAMERA_POSITION = new THREE.Vector3(
+  MARS_VIEW_START * 0.0042,
+  (MARS_VIEW_START - 7400) * 0.004 + 0.74,
+  10 + MARS_VIEW_START * 0.003,
+);
 
 const clamp01 = (value) => Math.min(Math.max(value, 0), 1);
 const smoothStep = (value) => {
@@ -116,10 +122,10 @@ Array(NUMOFSTARS).fill().forEach(addStar);
 const spaceTexture = new THREE.TextureLoader().load('https://blenderartists.org/uploads/default/optimized/4X/7/e/2/7e2d7bea4ac21388c4a96e1371f375c4ce00094b_2_1024x576.jpg');
 scene.background = spaceTexture;
 
-const earthTexture = new THREE.TextureLoader().load('https://static.wikia.nocookie.net/7e70da43-c141-4541-b49d-2ee513736a2e/scale-to-width/755');
+const earthTexture = new THREE.TextureLoader().load('/public/img/earth.jpg');
 const earth = new THREE.Mesh(
   new THREE.SphereGeometry(4, 32, 32),
-  new THREE.MeshStandardMaterial({map: earthTexture}),
+  new THREE.MeshStandardMaterial({map: earthTexture, roughness: 0.00}),
 );
 
 
@@ -128,7 +134,7 @@ earth.rotation.z = 0.2;
 earth.rotation.x = 0.15;
 scene.add(earth);
 
-const marsTexture = new THREE.TextureLoader().load('/public/img/mars_map.jpg');
+const marsTexture = new THREE.TextureLoader().load('/public/img/mars.jpg');
 const mars = new THREE.Mesh(
   new THREE.SphereGeometry(10.5, 32, 32),
   new THREE.MeshStandardMaterial({map: marsTexture, roughness: 0.85}),
@@ -257,7 +263,7 @@ function moveCamera() {
   const position = new THREE.Vector3();
   const target = new THREE.Vector3(0, 0, 0);
 
-  if (scrollDistance <= 9000) {
+  if (scrollDistance <= MARS_VIEW_START) {
     position.set(
       scrollDistance * 0.0042,
       scrollDistance <= 7400
@@ -265,17 +271,17 @@ function moveCamera() {
         : (scrollDistance - 7400) * 0.004 + 0.74,
       10 + scrollDistance * 0.003,
     );
-  } else if (scrollDistance <= EARTH_VIEW_END) {
-    const progress = smoothStep((scrollDistance - 9000) / (EARTH_VIEW_END - 9000));
+  } else if (scrollDistance <= SOLAR_VIEW_START) {
+    const progress = smoothStep((scrollDistance - MARS_VIEW_START) / (SOLAR_VIEW_START - MARS_VIEW_START));
     target.copy(mars.position).multiplyScalar(progress);
     position.set(
-      THREE.MathUtils.lerp(37.8, mars.position.x + MARS_CAMERA_OFFSET.x, progress),
-      THREE.MathUtils.lerp(7.14, mars.position.y + MARS_CAMERA_OFFSET.y, progress),
-      THREE.MathUtils.lerp(37, mars.position.z + MARS_CAMERA_OFFSET.z, progress),
+      THREE.MathUtils.lerp(MARS_VIEW_START_CAMERA_POSITION.x, mars.position.x + MARS_CAMERA_OFFSET.x, progress),
+      THREE.MathUtils.lerp(MARS_VIEW_START_CAMERA_POSITION.y, mars.position.y + MARS_CAMERA_OFFSET.y, progress),
+      THREE.MathUtils.lerp(MARS_VIEW_START_CAMERA_POSITION.z, mars.position.z + MARS_CAMERA_OFFSET.z, progress),
     );
   } else {
-    const progress = smoothStep((scrollDistance - EARTH_VIEW_END) / (SYSTEM_VIEW_END - EARTH_VIEW_END));
-    target.lerpVectors(mars.position, SUN_POSITION, smoothStep((scrollDistance - EARTH_VIEW_END) / 8000));
+    const progress = smoothStep((scrollDistance - SOLAR_VIEW_START) / (SYSTEM_VIEW_END - SOLAR_VIEW_START));
+    target.lerpVectors(mars.position, SUN_POSITION, smoothStep((scrollDistance - SOLAR_VIEW_START) / 8000));
     position.set(
       THREE.MathUtils.lerp(mars.position.x + MARS_CAMERA_OFFSET.x, SUN_POSITION.x, progress),
       THREE.MathUtils.lerp(mars.position.y + MARS_CAMERA_OFFSET.y, 15000, progress),
@@ -346,7 +352,7 @@ function animate() {
     moonOrbitStartTime = elapsedTime;
   }
 
-  if (scrollDistance > 9000) {
+  if (scrollDistance > MARS_VIEW_START) {
     if (!marsOrbitActive) {
       marsOrbitStartTime = elapsedTime;
       marsOrbitActive = true;

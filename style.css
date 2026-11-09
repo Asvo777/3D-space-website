@@ -5,7 +5,8 @@
 }
 
 body{
-  text-align: center;
+  margin: 0;
+  background-color: #000000;
 }
 
 nav{
@@ -31,163 +32,31 @@ nav{
   font-family: "Comic Sans MS", "Comic Sans", cursive;
   color: #fafdff;
 
-  padding-bottom: 50000px;
+  padding-bottom: 30000px;
 }
 
 h1{
   width: fit-content;
-  margin: 80px 0 0 40px;
   border-bottom: solid #fafdff;
+  font-size: 100px;
 }
 
 h2{
-  position: absolute;
-  left: 38px;
+  font-size: 35px;
 }
+
+section{
+  padding: 50px;
+}
+
+#earth {
+  height: auto;
+ }
 
 #moon {
   height: auto;
 }
 
-.earth-title{
-  margin-top: 10px;
-}
-
-.earth-title h1{
-  position: relative;
-  font-size: 100px;
-  left: 40px;
-}
-
-.earth-title h2{
-  font-size: 35px;
-}
-
-.earth-title img{
-  text-align: center;
-  margin: 0px 0 20px 35%;
-  border: 3px solid white;
-  border-radius: 7px;
-  width: 30%;
-}
-
-.earth-title figure{
-  text-align: center;
-  margin: 1000px 0 1000px 0;
-}
-
-.earth-details{
-  visibility: visible;
-  position: relative;
-  background-color: #1515158b;
-  padding: 30px;
-  margin-bottom: 500px;
-}
-
-.earth-details h3{
-  font-size: 30px;
-  margin-bottom: 50px;
-}
-
-#earth-p-1{
-  left: 2%;
-  width: 40%;
-  height: 50%;
-}
-
-#earth-p-2{
-  left: 58%;
-  width: 40%;
-  height: 50%;
-}
-
-#earth-p-3{
-  left: 2%;
-  width: 40%;
-  height: 50%;
-}
-
-#earth-p-4{
-  left: 58%;
-  width: 40%;
-  height: 50%;
-  margin-bottom: 1000px;
-}
-
-#moon-title{
-  position: relative;
-  left: 10%;
-  width: 30%;
-  overflow-wrap: normal;
-  margin:1200px 0 600px 0;
-}
-
-#moon-title h1{
-  position: relative;
-  font-size: 100px;
-  left: 32px;
-}
-
-#moon-title h2{
-  position: relative;
-  left: -30px;
-  font-size: 30px;
-}
-
-.moon-details{
-  visibility: visible;
-  position: relative;
-  background-color: #717171ad;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  padding: 30px;
-  margin-bottom: 500px;
-}
-
-.moon-details h3{
-  font-size: 30px;
-  margin-bottom: 50px;
-  text-shadow: -1.2px -1.2px 0 #000, 1.2px -1.2px 0 #000, -1.2px 1.2px 0 #000, 1.2px 1.2px 0 #000;
-}
-
-#moon-p-1{
-  left: 2%;
-  width: 40%;
-  height: 50%;
-}
-
-#moon-p-2{
-  left: 58%;
-  width: 40%;
-  height: 50%;
-  margin-bottom: 800px;
-}
-
-#moon-p-3 {
-  left: 5%;
-  width: 90%;
-  height: auto;
-  margin-bottom: 1000px;
-}
-
-#moon-p-3 summary{
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-
-.container{
-  display: flex;
-  text-align: center;
-}
-
-#moon-fact-1{
-  flex-basis: 33%;
-}
-#moon-fact-2{
-  flex-basis: 33%;
-}
-#moon-fact-3{
-  flex-basis: 33%;
-}
 
 .hide{
   opacity: 0;
