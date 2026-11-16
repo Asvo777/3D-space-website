@@ -70,42 +70,6 @@ scene.add(pointLight, ambientLight);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0, 0);
 const clock = new THREE.Clock();
-let keyboardCameraMode = false;
-const pressedKeys = new Set();
-const cameraMoveSpeed = 100;
-const movementKeys = new Set([
-  "KeyW", "KeyA", "KeyS", "KeyD",
-  "ArrowUp", "ArrowLeft", "ArrowDown", "ArrowRight",
-  "KeyQ", "KeyE",
-]);
-
-window.addEventListener("keydown", (event) => {
-  if (event.code === "KeyC" && !event.repeat) {
-    keyboardCameraMode = !keyboardCameraMode;
-    controls.enabled = !keyboardCameraMode;
-    pressedKeys.clear();
-
-    if (!keyboardCameraMode) {
-      moveCamera();
-    }
-
-    event.preventDefault();
-    return;
-  }
-
-  if (keyboardCameraMode && movementKeys.has(event.code)) {
-    pressedKeys.add(event.code);
-    event.preventDefault();
-  }
-});
-
-window.addEventListener("keyup", (event) => {
-  pressedKeys.delete(event.code);
-});
-
-window.addEventListener("blur", () => {
-  pressedKeys.clear();
-});
 
 function addStar(){
   const geometry = new THREE.SphereGeometry(0.15, 24 , 24);
@@ -257,7 +221,6 @@ addOortCloud(3000);
 let t;
 function moveCamera() {
   t = document.body.getBoundingClientRect().top;
-  if (keyboardCameraMode) return;
 
   const scrollDistance = Math.max(0, -t);
   const position = new THREE.Vector3();
@@ -307,32 +270,9 @@ let marsOrbitStartTime = 0;
 let marsOrbitActive = false;
 function animate() {
   requestAnimationFrame(animate);
-  const deltaTime = clock.getDelta();
-  const elapsedTime = clock.elapsedTime;
+  const elapsedTime = clock.getElapsedTime();
   const scrollDistance = Math.max(0, -t);
   console.log(scrollDistance);
-
-  if (keyboardCameraMode) {
-    const forward = new THREE.Vector3();
-    camera.getWorldDirection(forward);
-    forward.y = 0;
-    forward.normalize();
-
-    const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
-    const movement = new THREE.Vector3();
-
-    if (pressedKeys.has("KeyW") || pressedKeys.has("ArrowUp")) movement.add(forward);
-    if (pressedKeys.has("KeyS") || pressedKeys.has("ArrowDown")) movement.sub(forward);
-    if (pressedKeys.has("KeyD") || pressedKeys.has("ArrowRight")) movement.add(right);
-    if (pressedKeys.has("KeyA") || pressedKeys.has("ArrowLeft")) movement.sub(right);
-    if (pressedKeys.has("KeyE")) movement.y += 1;
-    if (pressedKeys.has("KeyQ")) movement.y -= 1;
-
-    if (movement.lengthSq() > 0) {
-      movement.normalize();
-      camera.position.addScaledVector(movement, cameraMoveSpeed * deltaTime);
-    }
-  }
 
   moon.rotation.y -= 0.0005;
 
@@ -373,9 +313,7 @@ function animate() {
     );
   }
 
-  if (!keyboardCameraMode) {
-    moveCamera();
-  }
+  moveCamera();
 
   earth.rotation.y += 0.005;
   mars.rotation.y += 0.005;

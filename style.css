@@ -19,6 +19,30 @@ nav{
   padding-bottom: 2px;
 }
 
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 50px;
+  background-color: #120224c6;
+  color: #fafdff;
+}
+
+.footer-links {
+  position: static;
+  gap: 24px;
+}
+
+.footer-links a,
+.site-footer p {
+  color: #fafdff;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
 .nav-link {
   color: rgba(174, 174, 174, 0.728);
 }
@@ -31,8 +55,6 @@ nav{
   position: absolute;
   font-family: "Comic Sans MS", "Comic Sans", cursive;
   color: #fafdff;
-
-  padding-bottom: 30000px;
 }
 
 h1{
@@ -43,6 +65,12 @@ h1{
 
 h2{
   font-size: 35px;
+  margin-bottom: 1000px;
+}
+
+h3{
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
 section{
@@ -50,19 +78,96 @@ section{
 }
 
 #earth {
-  height: auto;
+  height: 7000px;
  }
 
 #moon {
+  height: 8750px;
+}
+
+#mars {
+  height: 7000px;
+}
+
+.two-cols{
+  display: flex;
+  justify-content: space-around;
+}
+
+.half{
+  width: 47%;
+}
+
+.two-cols {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.two-cols > figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.half img {
+  width: 100%;
   height: auto;
 }
 
+.left{
+  width: 65%;
+}
+
+.right{
+  text-align: right;
+  margin-left: auto;
+  width: 65%;
+}
+
+.gap{
+  margin-bottom: 400px;
+}
+
+.lil{
+  font-size: 15px;
+  opacity: 0.6;
+}
+
+.center{
+  text-align: center;
+}
+
+figure{
+  text-align: center;
+}
+
+.right{
+  width: 45%;
+}
+
+.left{
+  width: 45%;
+}
+
+.end{
+  margin-bottom: 300px;
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    flex-direction: column;
+    padding: 24px;
+    text-align: center;
+  }
+}
 
 .hide{
   opacity: 0;
   filter: blur(3px);
   transition: all 1s;
 }
+
 .show{
   opacity: 1;
   filter: blur(0);
