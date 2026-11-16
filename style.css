@@ -11,6 +11,7 @@ html {
 body{
   margin: 0;
   background-color: #000000;
+  min-width: 499px;
 }
 
 nav{
@@ -36,16 +37,21 @@ nav{
 
 .footer-links {
   position: static;
-  gap: 24px;
 }
 
 .footer-links a,
 .site-footer p {
+  text-decoration: none;
+  color: #fafdff;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
   color: #fafdff;
 }
 
 .site-footer p {
-  margin: 0;
+  width: 50%;
 }
 
 .nav-link {
