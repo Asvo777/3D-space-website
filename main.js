@@ -86,7 +86,7 @@ Array(NUMOFSTARS).fill().forEach(addStar);
 const spaceTexture = new THREE.TextureLoader().load('https://blenderartists.org/uploads/default/optimized/4X/7/e/2/7e2d7bea4ac21388c4a96e1371f375c4ce00094b_2_1024x576.jpg');
 scene.background = spaceTexture;
 
-const earthTexture = new THREE.TextureLoader().load('/public/img/earth.jpg');
+const earthTexture = new THREE.TextureLoader().load('/img/earth.jpg');
 const earth = new THREE.Mesh(
   new THREE.SphereGeometry(4, 32, 32),
   new THREE.MeshStandardMaterial({map: earthTexture, roughness: 0.00}),
@@ -98,7 +98,7 @@ earth.rotation.z = 0.2;
 earth.rotation.x = 0.15;
 scene.add(earth);
 
-const marsTexture = new THREE.TextureLoader().load('/public/img/mars.jpg');
+const marsTexture = new THREE.TextureLoader().load('/img/mars.jpg');
 const mars = new THREE.Mesh(
   new THREE.SphereGeometry(10.5, 32, 32),
   new THREE.MeshStandardMaterial({map: marsTexture, roughness: 0.85}),
